@@ -7,7 +7,7 @@
 {-# LANGUAGE TypeFamilies #-}
 {-# LANGUAGE TypeOperators #-}
 {-# OPTIONS_GHC -Wall #-}
--- {-# OPTIONS_GHC -ddump-simpl -dsuppress-idinfo -dsuppress-module-prefixes -dsuppress-uniques #-}
+-- {-# OPTIONS_GHC -ddump-simpl -dsuppress-idinfo -dsuppress-module-prefixes #-}
 {-# OPTIONS_GHC -fplugin Test.Inspection.Plugin #-}
 module Main where
 
@@ -66,8 +66,9 @@ variant' = \ xs -> case (xs :: NP I '[a]) of
   I (_ :: b) :* ys -> case (ys :: NP I '[]) of
     Nil -> (K () :* Nil :: NP (K ()) '[b])
 
-inspect $ 'example === 'direct   -- fails
-inspect $ 'example === 'variant  -- fails
+-- inspect $ 'example === 'direct   -- fails
+-- inspect $ 'example === 'variant  -- fails
+inspect $ 'example ==- 'variant  -- succeeds
 inspect $ 'example === 'variant' -- succeeds
 
 -- Core code:
